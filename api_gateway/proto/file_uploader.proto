@@ -1,0 +1,36 @@
+syntax="proto3";
+
+package file_processing_service;
+option go_package="genproto/file_processing_service";
+import "google/protobuf/empty.proto";
+
+
+service FileProcessingService {
+    // if you want to use this method, you have to configure the max size that can be sent via grpc connection
+    rpc UploadFileWithStreaming(stream Chunk) returns (FileUploadResponse) {}
+    rpc GetFileList(google.protobuf.Empty) returns(FileList) {}
+    rpc DownloadFile(DownloadFileRequest) returns (stream Chunk) {}
+}
+
+message DownloadFileRequest {
+    string name = 1;
+}
+
+message Chunk {
+    string name = 1;
+    bytes data = 2;
+}
+
+message FileUploadResponse {
+    string message = 1;
+}
+
+message FileList {
+    repeated FileInfo file_info = 1;
+}
+
+message FileInfo {
+    string name = 1;
+    string created_at = 2;
+    string updated_at = 3;
+}

@@ -1,0 +1,105 @@
+basePath: /v1
+host: localhost:8000
+info:
+  contact: {}
+  description: Using a translation service as an example
+  title: Go Clean Template API
+  version: "1.0"
+paths:
+  /file/{name}:
+    get:
+      consumes:
+      - application/json
+      description: Download a file by name
+      parameters:
+      - description: file name
+        in: path
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: file
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Download a file by name
+      tags:
+      - file
+  /file/list:
+    get:
+      consumes:
+      - application/json
+      description: Get list of files
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: List of files
+      tags:
+      - file
+  /file/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Uploading large/small files
+      parameters:
+      - description: file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Upload file
+      tags:
+      - file
+schemes:
+- http
+- https
+swagger: "2.0"
